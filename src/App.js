@@ -24,31 +24,24 @@ export default class App extends Component {
 
     const newId = { id: nanoid(), ...data };
 
-    this.state.contacts.filter(contact => {
-      return contact.name.toLowerCase() === normalizedNameContact
-        ? alert(`${name} is already in contacts.`)
-        : contact.name;
-    });
+    this.findContactName().includes(normalizedNameContact)
+      ? alert(`${name} is already in contacts.`)
+      : this.setState(previousState => {
+          return { contacts: [...previousState.contacts, newId] };
+        });
 
-    this.setState(previousState => ({
-      contacts: [...previousState.contacts, newId],
-    }));
-    console.log(newId);
+    /* console.log(newId); */
   };
 
-  checksContactName = dataName => {
+  findContactName = () => {
     const { contacts } = this.state;
-    const { name } = dataName;
-    const normalizedNameContact = name.toLowerCase();
+    return contacts.map(({ name }) => name.toLowerCase());
+  };
 
-    contacts.filter(contact => {
-      /*  if (name.toLowerCase() === normalizedNameContact) {
-        return alert(`${name} is already in contacts.`);
-      } */
-      return contact.name.toLowerCase() === normalizedNameContact
-        ? alert(`${name} is already in contacts.`)
-        : false;
-    });
+  deleteContact = contactId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(({ id }) => id !== contactId),
+    }));
   };
 
   changeFilter = evt => {
@@ -58,7 +51,7 @@ export default class App extends Component {
   getFilterContact = () => {
     const { contacts, filter } = this.state;
     const normalizedFilter = filter.toLowerCase();
-    return contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter));
+    return contacts.filter(({ name }) => name.toLowerCase().includes(normalizedFilter));
   };
 
   render() {
@@ -78,7 +71,10 @@ export default class App extends Component {
 
           <Filter value={filter} onChange={this.changeFilter}></Filter>
 
-          <ContactList visibleContact={visibleContact}></ContactList>
+          <ContactList
+            visibleContact={visibleContact}
+            onDeleteContact={this.deleteContact}
+          ></ContactList>
         </section>
       </>
     );
