@@ -5,6 +5,9 @@ import ContactForm from './components/Form/Form';
 import Filter from './components/Filter/Filter';
 import ContactList from './components/ContactList/ContactList';
 
+import { Container } from './App.global.styled';
+import { TitlePhoneBook, TitleContacts, Section } from './App.styled';
+
 export default class App extends Component {
   state = {
     contacts: [
@@ -60,14 +63,14 @@ export default class App extends Component {
     const visibleContact = this.getFilterContact();
 
     return (
-      <>
-        <section>
-          <h1>Phonebook</h1>
+      <Container>
+        <Section>
+          <TitlePhoneBook>Phonebook</TitlePhoneBook>
           <ContactForm formSubmit={this.formSubmitHandler}></ContactForm>
-        </section>
+        </Section>
 
-        <section>
-          <h2>Contacts</h2>
+        <Section>
+          <TitleContacts>Contacts</TitleContacts>
 
           <Filter value={filter} onChange={this.changeFilter}></Filter>
 
@@ -75,8 +78,8 @@ export default class App extends Component {
             visibleContact={visibleContact}
             onDeleteContact={this.deleteContact}
           ></ContactList>
-        </section>
-      </>
+        </Section>
+      </Container>
     );
   }
 }

@@ -1,13 +1,15 @@
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 
+import { LabelFilterStyle, InputFilterStyle } from './Filter.styled';
+
 const generateId = nanoid();
 
 const Filter = ({ value, onChange }) => {
   return (
-    <label htmlFor={generateId}>
+    <LabelFilterStyle htmlFor={generateId}>
       Find contacts by name
-      <input
+      <InputFilterStyle
         type="text"
         name="filter"
         autoComplete="off"
@@ -15,7 +17,7 @@ const Filter = ({ value, onChange }) => {
         onChange={onChange}
         id={generateId}
       />
-    </label>
+    </LabelFilterStyle>
   );
 };
 

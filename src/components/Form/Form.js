@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
 
+import { FormPhoneBook, LabelPhoneBook, InputPhoneBook, ButtonPhoneBook } from './Form.styled';
+
 export default class ContactForm extends Component {
   state = {
     name: '',
@@ -31,10 +33,10 @@ export default class ContactForm extends Component {
     const { name, number } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label htmlFor={this.nameInputId}>
+      <FormPhoneBook onSubmit={this.handleSubmit}>
+        <LabelPhoneBook htmlFor={this.nameInputId}>
           Name
-          <input
+          <InputPhoneBook
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -45,10 +47,10 @@ export default class ContactForm extends Component {
             onChange={this.handleNameChange}
             id={this.nameInputId}
           />
-        </label>
-        <label htmlFor={this.numberInputId}>
+        </LabelPhoneBook>
+        <LabelPhoneBook htmlFor={this.numberInputId}>
           Number
-          <input
+          <InputPhoneBook
             type="tel"
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -59,9 +61,9 @@ export default class ContactForm extends Component {
             onChange={this.handleNameChange}
             id={this.numberInputId}
           />
-        </label>
-        <button type="submit">Add contact</button>
-      </form>
+        </LabelPhoneBook>
+        <ButtonPhoneBook type="submit">Add contact</ButtonPhoneBook>
+      </FormPhoneBook>
     );
   }
 }
