@@ -27,7 +27,7 @@ export default class App extends Component {
 
     const newId = { id: nanoid(), ...data };
 
-    this.findContactName().includes(normalizedNameContact)
+    this.findContactName(normalizedNameContact)
       ? alert(`${name} is already in contacts.`)
       : this.setState(previousState => {
           return { contacts: [...previousState.contacts, newId] };
@@ -36,9 +36,9 @@ export default class App extends Component {
     /* console.log(newId); */
   };
 
-  findContactName = () => {
+  findContactName = nameData => {
     const { contacts } = this.state;
-    return contacts.map(({ name }) => name.toLowerCase());
+    return contacts.find(({ name }) => name.toLowerCase() === nameData);
   };
 
   deleteContact = contactId => {
